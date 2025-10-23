@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Row, Col, Input, Select, Button, Space, Drawer, message, Typography, Skeleton } from "antd";
+import { Row, Col, Input, Select, Button, Space, Drawer, Typography, Skeleton } from "antd";
 import { PlusOutlined, ReloadOutlined } from "@ant-design/icons";
+import toast, { Toaster } from "react-hot-toast";
+
 import { getProperties, addProperty } from "../services/api";
 import PropertyCard from "../components/PropertyCard";
 import PropertyForm from "../components/PropertyForm";
@@ -18,8 +20,8 @@ export default function Home() {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [adding, setAdding] = useState(false); // loading for add button
-  const [refreshing, setRefreshing] = useState(false); // loading for refresh button
+  const [adding, setAdding] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchProperties = async () => {
     setLoading(true);
@@ -29,7 +31,7 @@ export default function Home() {
       setProperties(res.data || []);
     } catch (err) {
       console.error(err);
-      message.error("Failed to fetch properties");
+      toast.error("Failed to fetch properties");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -66,13 +68,13 @@ export default function Home() {
     try {
       setAdding(true);
       await addProperty(values);
-      message.success("Property added successfully!");
+      toast.success("Property added successfully!");
       resetForm();
       closeAddDrawer();
       fetchProperties();
     } catch (err) {
       console.error(err);
-      message.error("Failed to add property");
+      toast.error("Failed to add property");
     } finally {
       setAdding(false);
     }
@@ -85,6 +87,9 @@ export default function Home() {
 
   return (
     <div style={{ padding: 24, minHeight: "100vh", background: "#f5f7fa" }}>
+      {/* React Hot Toast container */}
+      <Toaster position="top-right" reverseOrder={false} />
+
       <Title level={2} style={{ marginBottom: 24, textAlign: "center", color: "#1890ff" }}>
         Property Listings
       </Title>
@@ -201,7 +206,7 @@ export default function Home() {
         }}
       />
 
-      {/* Animations */}
+      {/* Card fade-in animation */}
       <style>{`
         @keyframes fadeInUp {
           from {
