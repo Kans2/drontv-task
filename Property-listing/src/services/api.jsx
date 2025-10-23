@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const BASE = "http://localhost:5000";
+// Use environment variable
+const BASE = import.meta.env.VITE_API_BASE; 
 const RESOURCE = "/properties";
 const API_URL = `${BASE}${RESOURCE}`;
 
