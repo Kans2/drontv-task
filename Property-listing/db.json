@@ -1,7 +1,7 @@
 {
   "properties": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Modern Apartment",
       "type": "Apartment",
       "price": 4500000,
@@ -12,7 +12,7 @@
       "longitude": 77.5946
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Luxury Villa",
       "type": "Villa",
       "price": 12500000,
@@ -23,7 +23,7 @@
       "longitude": 78.4867
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Cozy Family House",
       "type": "House",
       "price": 7800000,
@@ -34,7 +34,7 @@
       "longitude": 80.2707
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Downtown Studio",
       "type": "Studio",
       "price": 2800000,
@@ -45,7 +45,7 @@
       "longitude": 72.8777
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Riverside Condo",
       "type": "Apartment",
       "price": 6200000,
