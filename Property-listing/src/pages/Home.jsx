@@ -22,6 +22,7 @@ export default function Home() {
   const [modalVisible, setModalVisible] = useState(false);
   const [adding, setAdding] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const fetchProperties = async () => {
     setLoading(true);
@@ -40,6 +41,13 @@ export default function Home() {
 
   useEffect(() => {
     fetchProperties();
+  }, []);
+
+  // Track window resize for responsive buttons
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const types = useMemo(() => {
@@ -87,15 +95,15 @@ export default function Home() {
 
   return (
     <div style={{ padding: 24, minHeight: "100vh", background: "#f5f7fa" }}>
-      {/* React Hot Toast container */}
       <Toaster position="top-right" reverseOrder={false} />
 
       <Title level={2} style={{ marginBottom: 24, textAlign: "center", color: "#1890ff" }}>
         Property Listings
       </Title>
 
-      <Row justify="space-between" align="middle" gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col xs={24} sm={12} md={10}>
+      {/* Filters and Buttons */}
+      <Row justify="space-between" align="middle" gutter={[16, 16]} style={{ marginBottom: 24, flexWrap: "wrap" }}>
+        <Col xs={24} sm={12} md={10} style={{ marginBottom: 8 }}>
           <Search
             placeholder="Search by name or location"
             allowClear
@@ -106,7 +114,7 @@ export default function Home() {
           />
         </Col>
 
-        <Col xs={24} sm={8} md={6}>
+        <Col xs={24} sm={8} md={6} style={{ marginBottom: 8 }}>
           <Select
             value={filterType}
             onChange={(val) => setFilterType(val)}
@@ -120,12 +128,17 @@ export default function Home() {
           </Select>
         </Col>
 
-        <Col xs={24} sm={4} md={8} style={{ textAlign: "right" }}>
-          <Space>
+        {/* Buttons: horizontal on desktop, vertical on mobile */}
+        <Col xs={24} sm={4} md={8} style={{ textAlign: windowWidth < 768 ? "left" : "right", marginBottom: 8 }}>
+          <Space
+            direction={windowWidth < 768 ? "vertical" : "horizontal"}
+            size={8}
+            style={{ width: windowWidth < 768 ? "100%" : "auto" }}
+          >
             <Button
               icon={<ReloadOutlined />}
               onClick={fetchProperties}
-              style={{ borderRadius: 8 }}
+              style={{ borderRadius: 8, width: windowWidth < 768 ? "100%" : "auto" }}
               loading={refreshing}
             >
               Refresh
@@ -135,7 +148,7 @@ export default function Home() {
               type="primary"
               icon={<PlusOutlined />}
               onClick={openAddDrawer}
-              style={{ borderRadius: 8 }}
+              style={{ borderRadius: 8, width: windowWidth < 768 ? "100%" : "auto" }}
               loading={adding}
             >
               Add Property
@@ -144,6 +157,7 @@ export default function Home() {
         </Col>
       </Row>
 
+      {/* Property Cards */}
       <Row gutter={[16, 16]}>
         {loading
           ? Array.from({ length: 8 }).map((_, i) => (
@@ -185,10 +199,11 @@ export default function Home() {
             ))}
       </Row>
 
+      {/* Add Property Drawer */}
       <Drawer
         title="Add New Property"
         placement="right"
-        width={450}
+        width={windowWidth < 600 ? "90%" : 450}
         onClose={closeAddDrawer}
         visible={drawerVisible}
         destroyOnClose
@@ -197,6 +212,7 @@ export default function Home() {
         <PropertyForm onSubmit={handleAdd} />
       </Drawer>
 
+      {/* Property Details Modal */}
       <PropertyModal
         visible={modalVisible}
         property={selectedProperty}
