@@ -35,15 +35,15 @@ The app allows users to **view, search, filter, add, and inspect property detail
 |-------|-------------|
 | Frontend | React.js, Ant design |
 | Backend | JSON Server (Mock REST API) |
-| Deployment | Render ( |
+| Deployment | Render |
 
 ---
 
 ## 🧩 API Endpoints (JSON Server)
 
-GET - https://localhost:your_port/api/properties → Fetch all property listings
-POST - https://localhost:your_port/api/properties → Add a new property
-
+- **GET - https://localhost:your_port/api/properties → Fetch all property listings**
+- **POST - https://localhost:your_port/api/properties → Add a new property**
+**
 ```bash
 # Start JSON Server
  npm start
@@ -67,22 +67,29 @@ Example db.json
 
 ## 🖥️ Installation & Setup
 
-# 1. Clone the Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/drontv-task.git
 cd drontv-task
 ```
-# 2. Install Dependencies
+
+## 2. Install Dependencies
+
 ```bash
 npm install
 ```
-# 3. Run JSON Server
+
+## 3. Run JSON Server
+
 ```bash
 cd backend
+
 npm start
 ```
-# 4. Run React App
+
+## 4. Run React App
+
 ```bash
 npm run dev
 ```
