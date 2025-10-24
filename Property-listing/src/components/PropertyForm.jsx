@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Select, InputNumber, message, Upload, Spin } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import axios from "axios";
+import { Form, Input, Button, Select, InputNumber, message } from "antd";
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -9,8 +7,6 @@ const { Option } = Select;
 export default function PropertyForm({ onSubmit }) {
   const [form] = Form.useForm();
   const [coordinates, setCoordinates] = useState({ latitude: "", longitude: "" });
-  const [uploading, setUploading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
 
   const handleFinish = async (values) => {
     try {
@@ -19,41 +15,14 @@ export default function PropertyForm({ onSubmit }) {
         price: Number(values.price),
         latitude: values.latitude ? Number(values.latitude) : null,
         longitude: values.longitude ? Number(values.longitude) : null,
-        image: imageUrl
-          ? imageUrl
-          : `https://source.unsplash.com/400x300/?${values.type || "house"}`,
+        image: `https://source.unsplash.com/400x300/?${values.type || "house"}`, // Default image
       };
 
-      await onSubmit(payload, () => {
-        form.resetFields();
-        setImageUrl("");
-      });
+      await onSubmit(payload, () => form.resetFields());
       message.success("Property added successfully!");
     } catch (error) {
       console.error(error);
       message.error("Failed to add property. Please try again.");
-    }
-  };
-
-  // Upload image to Cloudinary
-  const handleUpload = async ({ file }) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", import.meta.env.VITE_APP_CLOUDINARY_UPLOAD_PRESET); // Replace with your preset
-    setUploading(true);
-
-    try {
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_APP_CLOUDINARY_CLOUD_NAME}/image/upload`, // Replace YOUR_CLOUD_NAME
-        formData
-      );
-      setImageUrl(res.data.secure_url);
-      message.success("Image uploaded successfully!");
-    } catch (err) {
-      console.error(err);
-      message.error("Image upload failed.");
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -125,26 +94,6 @@ export default function PropertyForm({ onSubmit }) {
         <TextArea rows={4} placeholder="Describe the property briefly" />
       </Form.Item>
 
-      {/* 🌟 Cloudinary File Upload */}
-      <Form.Item label="Property Image (optional)">
-        <Upload
-          customRequest={handleUpload}
-          showUploadList={false}
-          accept="image/*"
-        >
-          <Button icon={<UploadOutlined />} disabled={uploading}>
-            {uploading ? <Spin /> : imageUrl ? "Change Image" : "Upload Image"}
-          </Button>
-        </Upload>
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt="Property"
-            style={{ marginTop: 8, width: "100%", maxHeight: 200, objectFit: "cover" }}
-          />
-        )}
-      </Form.Item>
-
       {/* Latitude & Longitude */}
       <Form.Item name="latitude" label="Latitude (optional)">
         <Input placeholder="e.g., 12.9716" />
@@ -172,7 +121,7 @@ export default function PropertyForm({ onSubmit }) {
       <Form.Item>
         <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
           <Button onClick={() => form.resetFields()}>Reset</Button>
-          <Button type="primary" htmlType="submit" disabled={uploading}>
+          <Button type="primary" htmlType="submit">
             Add Property
           </Button>
         </div>
@@ -180,7 +129,6 @@ export default function PropertyForm({ onSubmit }) {
     </Form>
   );
 }
-
 
 
 

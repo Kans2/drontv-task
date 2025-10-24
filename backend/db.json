@@ -7,7 +7,6 @@
       "price": 4500000,
       "location": "Bangalore",
       "description": "Spacious 2BHK apartment near city center",
-      "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c",
       "latitude": 12.9716,
       "longitude": 77.5946
     },
@@ -18,7 +17,6 @@
       "price": 12500000,
       "location": "Hyderabad",
       "description": "Beautiful villa with garden and pool",
-      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
       "latitude": 17.385,
       "longitude": 78.4867
     },
@@ -29,7 +27,6 @@
       "price": 7800000,
       "location": "Chennai",
       "description": "3BHK house with a large backyard, perfect for a family",
-      "image": "https://images.unsplash.com/photo-1570129477492-45c003edd2be",
       "latitude": 13.0827,
       "longitude": 80.2707
     },
@@ -40,7 +37,6 @@
       "price": 2800000,
       "location": "Mumbai",
       "description": "Compact studio apartment in a prime business district",
-      "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2",
       "latitude": 19.076,
       "longitude": 72.8777
     },
@@ -51,9 +47,18 @@
       "price": 6200000,
       "location": "Kolkata",
       "description": "3BHK apartment with stunning river views",
-      "image": "https://images.unsplash.com/photo-1599423300746-b62533397364",
       "latitude": 22.5726,
       "longitude": 88.3639
+    },
+    {
+      "name": "Hillside Villa",
+      "type": "Villa",
+      "price": 9800000,
+      "location": "Pune",
+      "description": "Elegant hillside villa with private pool and panoramic valley views",
+      "latitude": 18.5204,
+      "longitude": 73.8567,
+      "id": "2pgcwFh"
     }
   ]
 }

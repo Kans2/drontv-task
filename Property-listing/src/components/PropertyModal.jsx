@@ -27,19 +27,6 @@ export default function PropertyModal({ visible, property, onClose }) {
       destroyOnClose
     >
       <Row gutter={16}>
-        <Col xs={24} md={10}>
-          <img
-            src={image && image.trim() !== "" ? image : `https://source.unsplash.com/600x400/?house`}
-            alt={name}
-            style={{
-              width: "100%",
-              height: 320,
-              objectFit: "cover",
-              borderRadius: 6,
-            }}
-          />
-        </Col>
-
         <Col xs={24} md={14}>
           <div style={{ padding: "4px 8px" }}>
             <p><strong>Type:</strong> {type}</p>
